@@ -18,7 +18,7 @@ def home():
 @app.route("/upload", methods=['POST'])
 def upload():
     file = request.files['file']
-    file.save('uploads/' + file.filename)
+    file.save('./uploads/' + file.filename)
 
     # Load the image to predict
     img_path = f"./uploads/{file.filename}"
@@ -31,8 +31,8 @@ def upload():
 
     # Make the prediction
     prediction = loaded_model.predict(x)
-    if os.path.exists(f"./uploads/{file.filename}"):
-        os.remove(f"uploads/{file.filename}")
+    # if os.path.exists(f"./uploads/{file.filename}"):
+    #     os.remove(f"./uploads/{file.filename}")
         
     if prediction < 0.5:
         return jsonify({"message": "Cat"})
