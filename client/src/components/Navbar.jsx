@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <div className="text-white">
-      <h1 className="w-full text-3xl font-bold text-[#00df9a]">REACT</h1>
+      <h1 className="w-full text-3xl text-[#00df9a]">REACT</h1>
 
       <ul className="flex justify-between text-white">
         <li className="p-4">Home</li>
