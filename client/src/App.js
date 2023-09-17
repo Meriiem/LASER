@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [data, setData] = useState("");
@@ -40,6 +41,9 @@ function App() {
 
   return (
     <>
+      <div>
+        <Navbar />
+      </div>
       <p className="text-lg font-normal text-black lg:text-xl">
         Upload the image file to detect.
       </p>
