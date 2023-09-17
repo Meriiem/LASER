@@ -39,6 +39,5 @@ def upload():
     else:
         return jsonify({"message": "Dog"})
 
-
 if __name__ == '__main__':
     app.run(debug=True)

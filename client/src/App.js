@@ -1,5 +1,3 @@
-import "./App.css";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -42,13 +40,7 @@ function App() {
 
   return (
     <>
-      <h1 className=" mt-[5rem] mb-4 text-3xl font-extrabold dark:text-indigo-800 md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900">
-          Machine Learning Model to
-        </span>
-        <br /> Detect cats & Dogs
-      </h1>
-      <p className="text-lg font-normal text-white lg:text-xl">
+      <p className="text-lg font-normal text-black lg:text-xl">
         Upload the image file to detect.
       </p>
       <form onSubmit={handleSubmit}>
@@ -74,11 +66,11 @@ function App() {
             />
           </label>
         </div>
-        <span className="text-white">File Uploaded : {filename}</span>
+        <span className="text-black">File Uploaded : {filename}</span>
 
         <div className="flex items-center justify-center">
           <button
-            className="flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
+            className="flex bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-full mt-5"
             type="submit"
           >
             PREDICT
