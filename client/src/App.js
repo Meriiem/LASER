@@ -3,6 +3,8 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Features from "./components/Features";
+import Cards from "./components/Cards";
+import Footer from "./components/Footer";
 
 function App() {
   const [data, setData] = useState("");
@@ -47,8 +49,10 @@ function App() {
         <Navbar />
         <Main />
         <Features />
+        {/* <Cards /> */}
+        <Footer />
       </div>
-      <p className="text-lg font-normal text-black lg:text-xl">
+      {/* <p className="text-lg font-normal text-black lg:text-xl">
         Upload the image file to detect.
       </p>
       <form onSubmit={handleSubmit}>
@@ -90,7 +94,7 @@ function App() {
         <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900 font-black">
           Detected Image is : {val}
         </span>
-      </div>
+      </div> */}
     </>
   );
 }
