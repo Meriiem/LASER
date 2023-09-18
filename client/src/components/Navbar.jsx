@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
 
   const handleNav = () => {
     setNav(!nav);
@@ -31,7 +31,7 @@ const Navbar = () => {
             : "fixed left-[-100%]"
         }
       >
-        <h1 id="logo" className="w-full text-3xl text-[#00df9a]">
+        <h1 id="logo" className="w-full text-3xl text-[#83bdfd]">
           LASER
         </h1>
         <ul className="uppercase p-4">
