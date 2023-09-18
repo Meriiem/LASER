@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Typed from "react-typed";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (

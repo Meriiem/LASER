@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Analytics from "./components/Analytics";
 
 function App() {
   const [data, setData] = useState("");
@@ -45,6 +46,7 @@ function App() {
       <div>
         <Navbar />
         <Hero />
+        <Analytics />
       </div>
       <p className="text-lg font-normal text-black lg:text-xl">
         Upload the image file to detect.
