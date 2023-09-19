@@ -24,8 +24,12 @@ const Footer = () => {
           <FaInstagram size={30} />
           <FaTwitterSquare size={30} />
         </div>
+
+        <p className="justify-center ">
+          Copyright © 2023 Senior Team. All Rights Reserved.
+        </p>
       </div>
-      <div className="lg:col-span-3 flex justify-between">
+      {/* <div className="lg:col-span-3 flex justify-between">
         <div>
           <h6 className="font-medium text-gray-400">Solutions</h6>
           <ul>
@@ -45,7 +49,7 @@ const Footer = () => {
             <li className="py-2">API Status</li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
