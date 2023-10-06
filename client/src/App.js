@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import React ,{ useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Features from "./components/Features";
-import Cards from "./components/Cards";
+//import Cards from "./components/Cards";
 import Footer from "./components/Footer";
+import { Form } from "./components/Form"
+import { Youtube } from "./components/Youtube"
+
 
 function App() {
+  const [youtubeLink, setYoutubeLink]=useState(null);
   const [data, setData] = useState("");
-  const [val, setVal] = useState("Upload image to predict");
-
+  const [val, setVal] = useState("Upload file to generate a transcripts");
+  
+  
   const [filename, setFilename] = useState("No file Uploaded");
 
   useEffect(() => {
@@ -34,6 +39,7 @@ function App() {
         setVal(res.data.message);
       });
       alert("File uploaded successfully");
+     
     } catch (error) {
       console.error(error);
     }
@@ -52,7 +58,7 @@ function App() {
         {/* <Cards /> */}
         <Footer />
       </div>
-      {/* <p className="text-lg font-normal text-black lg:text-xl">
+      <p className="text-lg font-normal text-black lg:text-xl">
         Upload the image file to detect.
       </p>
       <form onSubmit={handleSubmit}>
@@ -92,9 +98,27 @@ function App() {
 
       <div className=" mt-[5rem] mb-4 text-2xl">
         <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900 font-black">
-          Detected Image is : {val}
+          Generated Transcript : {val}
         </span>
-      </div> */}
+      </div>
+
+      <div className="container">
+
+        
+        //note : you need to install "npm install react-player"
+         <Form setYoutubeLink={setYoutubeLink}/>
+         <br></br>
+         <Youtube youtubeLink={youtubeLink}/>
+         <div className=" mt-[5rem] mb-4 text-2xl">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900 font-black">
+          Youtube generated Transcript : {val}
+        </span>
+        
+      </div>
+         
+      </div>
+      
+   
     </>
   );
 }
