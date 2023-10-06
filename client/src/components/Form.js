@@ -1,7 +1,14 @@
+//this js file is dedicated to get the youtube link from the user then send that given link to Youtube.js
+
+//NOTE: this were i am having a problem were i was able to send data to the server but i cant recive data from the server
 import React,{useState, useEffect} from 'react'
 import axios from "axios"
 
 // const [youtubeVal, setYoutubeVal] = useState({});
+
+// TRIED TO USE THE BELLOW CODE TO RETREIVE DATA FROM THE SERVER BUT I AM GETTING AN ERROR THAT I AM NOT ALLOWED TO ADD FETCH OUTSIDE FUNCTION
+
+
 // const fetchData = async () => {
   //   const response = await axios.get("/youtubeUpload");
   //   return setYoutubeVal(response.data);
