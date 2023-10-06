@@ -1,6 +1,7 @@
 // this file is to display the video player
 
 import React from 'react'
+//note : you need to install "npm install react-player"
 import ReactPlayer from 'react-player/youtube'
 
 export const Youtube = ({youtubeLink}) => {
