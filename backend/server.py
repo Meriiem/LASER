@@ -4,6 +4,7 @@ import os
 from faster_whisper import WhisperModel
 from pydub import AudioSegment
 import argparse
+import json
 
 
 # Importing deps for image prediction
@@ -11,6 +12,7 @@ import argparse
 # from PIL import Image
 # import numpy as np
 # from tensorflow.keras.models import load_model
+
 
 
 
@@ -23,35 +25,20 @@ def home():
 
 @app.route("/upload", methods=['POST'])
 def upload():
-    file = request.files['file']
-    file.save('./uploads/' + file.filename)
     
-    file = os.path.abspath(file)
-    print("this is the file : ")
-    print(file)
-
+    file = request.files['file']
+    # FOR IT TO WORK YOU NEED TO CHANGE THE PATH BELLOW SO THAT THE AUDIO FILE WILL BE SAVED INTO THE GIVE FILE :D
+    # NOTE: just note that when we will deploy the website we will add the path that we want the file to be saved to in the server's computer 
+    file.save("C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename)  #change path here 
+    file = "C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename # and change path here
 
     model_size = 'base'
     model = WhisperModel(model_size, device="cpu", compute_type="int8_float32")
 
     parser = argparse.ArgumentParser()
-    # parser.add_argument('--file',type=str,default='lect_short.wav',help='File to transcribe')
-    # args = parser.parse_args()
 
     segments, info = model.transcribe(file, beam_size=5)
 
-
-    # split the wav file into segments of diffrent starting and ending time
-
-
-
-    # Number of steps in your total script
-    # steps_needed = len(list(segments))
-    # current_step = 0
-
-    # setup progress bar
-    # pb = ProgressBar(steps_needed, bar_length=100)
-    # pb.start()
 
     transcripts = []
     counter = 0
@@ -66,28 +53,20 @@ def upload():
 
     return jsonify({"message": transcripts})
 
-# When you are done you can force the progress bar to fini""sh
-# PB.finished()
 
-    # Load the image to predict
-    # img_path = f"./uploads/{file.filename}"
-    # img = image.load_img(img_path, target_size=(150, 150))
-    # x = image.img_to_array(img)
-    # x = np.expand_dims(x, axis=0)
-    # x /= 255
+# this is to recive data from the frontend and then resend the data back to the frontend inorder to print the youtube generated transcript
+# NOTE: still working on it (its still not working)
+@app.route("/youtubeUpload", methods=['POST'])
+def youtubeUpload():
+    data = request.get_json(); #reciving data from frontend in json format
+    print(type(data)) #for testing purposes you can remove it
+    print()
+    print(data["link"]) # same here (only for testing purposes
 
-    # loaded_model = load_model('./model/dogs_cat_model.h5')
+    return jsonify({"Youtubetranscript" : "hello world from backend"}) #just a test were i am trying to send back to the frontend the Youtube link
+      
+    
 
-    # # Make the prediction
-    # prediction = loaded_model.predict(x)
-    # # if os.path.exists(f"./uploads/{file.filename}"):
-    # #     os.remove(f"./uploads/{file.filename}")
-        
-    # if prediction < 0.5:
-    #     return jsonify({"message": "Cat"})
-    # else:
-    #     return jsonify({"message": "Dog"})
-     
 
 if __name__ == '__main__':
     app.run(debug=True)
