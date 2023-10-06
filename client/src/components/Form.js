@@ -32,14 +32,9 @@ export const Form = ({setYoutubeLink}) => {
         setYoutubeVal(input);
         axios.post('http://localhost:5000/youtubeUpload',{"link":input}).then((res) => {
                 
-                console.log(res);
-                
-                
-                }
-                
-            )
-           
-        
+                console.log(res);    
+                }   )
+          
         //empty form
         setInput('');
         const fetchUserData = () => {
@@ -51,8 +46,6 @@ export const Form = ({setYoutubeLink}) => {
                 setYoutubeVal(data.link)
               })
           }
-          
-       
     }
     
     
@@ -78,11 +71,7 @@ export const Form = ({setYoutubeLink}) => {
           Youtube generated Transcript : {youtubeVal}
         </span> */}
 
-
-
-
         </form>
-
 
    )
    }
