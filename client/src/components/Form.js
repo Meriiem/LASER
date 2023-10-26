@@ -1,54 +1,33 @@
-//this js file is dedicated to get the youtube link from the user then send that given link to Youtube.js
-
-//NOTE: this were i am having a problem were i was able to send data to the server but i cant recive data from the server
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import axios from "axios"
 
-// const [youtubeVal, setYoutubeVal] = useState({});
 
-// TRIED TO USE THE BELLOW CODE TO RETREIVE DATA FROM THE SERVER BUT I AM GETTING AN ERROR THAT I AM NOT ALLOWED TO ADD FETCH OUTSIDE FUNCTION
-
-
-// const fetchData = async () => {
-  //   const response = await axios.get("/youtubeUpload");
-  //   return setYoutubeVal(response.data);
-  // }
-
-  // useEffect(() => {
-  //   fetchData();
-  // },[])
-
-export const Form = ({setYoutubeLink}) => {
+ 
+export const Form = ({setYoutubeLink, setYoutubeVal}) => {
 
     const [input, setInput] = useState('');
-    const [youtubeVal, setYoutubeVal] = useState({});
-   
-    
+    const [youtubeeVal, setYoutubeeVal] = useState('');
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
         setYoutubeLink(input);
       
-        setYoutubeVal(input);
+        // setYoutubeVal(input);
         axios.post('http://localhost:5000/youtubeUpload',{"link":input}).then((res) => {
+                let result = res.data
+                 console.log(result);
+                 setYoutubeeVal(result["Youtubetranscript"])
+                 setYoutubeVal(result["Youtubetranscript"])
                 
-                console.log(res);    
-                }   )
-          
+                }
+                
+            )
+        
         //empty form
         setInput('');
-        const fetchUserData = () => {
-            fetch("https://localhost:5000/youtubeUpload")
-              .then(response => {
-                return response.json()
-              })
-              .then(data => {
-                setYoutubeVal(data.link)
-              })
-          }
+       
     }
-    
-    
+
 
    return(
 
@@ -67,11 +46,9 @@ export const Form = ({setYoutubeLink}) => {
             </button>
             <br></br>
 
-            {/* <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900 font-black">
-          Youtube generated Transcript : {youtubeVal}
-        </span> */}
 
         </form>
+
 
    )
    }
