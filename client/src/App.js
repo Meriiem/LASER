@@ -7,15 +7,25 @@ import Features from "./components/Features";
 import Footer from "./components/Footer";
 import { Form } from "./components/Form"
 import { Youtube } from "./components/Youtube"
+import Upload from "./components/Upload"
+import {Link,BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from "react-router-dom";
+
+
 
 
 function App() {
+  
+  // const navigate = useNavigate();
   const [youtubeLink, setYoutubeLink]=useState(null);
   const [data, setData] = useState("");
   const [val, setVal] = useState("Upload file to generate a transcripts");
-  
+  const [youtubeVal, setYoutubeVal] = useState('Enter link to generate transcript')
+  const [Active, setActive] = useState("");
+ 
+ 
   
   const [filename, setFilename] = useState("No file Uploaded");
+ 
 
   useEffect(() => {
     fetch("http://localhost:5000")
@@ -25,6 +35,8 @@ function App() {
         setData(data.message);
       });
   }, []);
+
+  
   const [file, setFile] = useState(null);
 
   const handleSubmit = async (event) => {
@@ -48,12 +60,17 @@ function App() {
     const file = event.target.files[0];
     setFilename(file.name);
   };
+ 
 
   return (
+    
     <>
+    
       <div>
+       {Active === "Yes" && <Upload  />} 
+     
         <Navbar />
-        <Main />
+        <Main setActive = {setActive} />
         <Features />
         {/* <Cards /> */}
         <Footer />
@@ -91,7 +108,7 @@ function App() {
             className="flex bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded-full mt-5"
             type="submit"
           >
-            PREDICT
+            GENERATE
           </button>
         </div>
       </form>
@@ -106,20 +123,21 @@ function App() {
 
         
         //note : you need to install "npm install react-player"
-         <Form setYoutubeLink={setYoutubeLink}/>
+         <Form setYoutubeLink={setYoutubeLink} setYoutubeVal={setYoutubeVal}/>
          <br></br>
          <Youtube youtubeLink={youtubeLink}/>
          <div className=" mt-[5rem] mb-4 text-2xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900 font-black">
-          Youtube generated Transcript : {val}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-600 from-blue-900 font-black" style={{paddingLeft:"40px"}}>
+          Youtube generated Transcript : {youtubeVal}
         </span>
         
       </div>
-         
+    
       </div>
       
-   
+     
     </>
+  
   );
 }
 
