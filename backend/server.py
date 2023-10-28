@@ -8,15 +8,6 @@ import json
 from pytube import YouTube
 
 
-# Importing deps for image prediction
-# from tensorflow.keras.preprocessing import image
-# from PIL import Image
-# import numpy as np
-# from tensorflow.keras.models import load_model
-
-
-
-
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
@@ -28,8 +19,8 @@ def home():
 def upload():
     
     file = request.files['file']
-    file.save("C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename)
-    file = "C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename
+    file.save('./uploads/' + file.filename)
+    file = './uploads/' + file.filename
 
     model_size = 'base'
     model = WhisperModel(model_size, device="cpu", compute_type="int8_float32")
@@ -58,7 +49,7 @@ def youtubeUpload():
     data = request.get_json();
     yt = YouTube(data["link"])
     video = yt.streams.filter(only_audio=True).first()
-    out_file = video.download(output_path="C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\")
+    out_file = video.download(output_path='./uploads/' )
     base, ext = os.path.splitext(out_file)
     new_file = base + '.wav'
     if not os.path.exists(new_file):
@@ -67,7 +58,6 @@ def youtubeUpload():
 
     print(new_file)
 
-    # file = "C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\helloworld.wav"
     model_size = 'base'
     model = WhisperModel(model_size, device="cpu", compute_type="int8_float32")
 
@@ -80,18 +70,11 @@ def youtubeUpload():
 
     for segment in segments:
         print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-        # audio_file = AudioSegment.from_wav(file)
-        # audio_file = audio_file[(segment.start * 1000):(segment.end * 1000)]
-        # audio_file.export(file, format="wav")
-        # counter += 1
         transcripts.append(segment.text)
 
    
 
     return jsonify({"Youtubetranscript" : transcripts})
       
-    
-
-
 if __name__ == '__main__':
     app.run(debug=True)
