@@ -8,7 +8,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300">
+    <div className="max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-white">
       <div>
         <h1 id="logo" className="w-full text-3xl font-medium text-white">
           LASER
