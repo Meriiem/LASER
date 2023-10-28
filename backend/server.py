@@ -17,7 +17,10 @@ def home():
 
 @app.route("/upload", methods=['POST'])
 def upload():
-    
+
+    #Meriem(Note): For you Omar modify the (uploads) path back to how you did it, cuz your way didn't work for me.
+    # "C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename
+
     file = request.files['file']
     file.save('./uploads/' + file.filename)
     file = './uploads/' + file.filename
