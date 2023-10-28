@@ -1,7 +1,0 @@
-/* File: font.css */
-
-@font-face {
-  font-family: "LogoFont1";
-  src: local("LogoFont1"), url("./fonts/LogoFont1.otf") format("otf"),
-    url("./fonts/LogoFont1.ttf") format("ttf");
-}
