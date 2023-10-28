@@ -3,9 +3,35 @@
 @tailwind utilities;
 
 body {
+  margin: 0;
   background-color: #000300;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* #logo {
-  font-family: LogoFont1;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: overline;
+  color: rgba(51, 48, 229, 0.349);
 } */
+
+.loader {
+  text-align: center;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
