@@ -1,0 +1,20 @@
+.Trial {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  padding: 3rem 5rem;
+}
+
+.card p {
+  padding-top: 1rem;
+  line-height: 150%;
+}
+
+.expand {
+  width: 35rem;
+}
