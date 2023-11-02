@@ -5,28 +5,32 @@ from faster_whisper import WhisperModel
 from pydub import AudioSegment
 import argparse
 import json
-from pytube import YouTube
+from summarize import Summarizer
+from transcription import Transcriptor
 
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
+summarizer = Summarizer()
+transcriptor = Transcriptor()
+model_size = 'base'
+model = WhisperModel(model_size, device="cuda", compute_type="int8_float16")
 @app.route("/")
 def home():
+    
     return {"message": "hello from backend"}
 
 @app.route("/upload", methods=['POST'])
 def upload():
-
-    #Meriem(Note): For you Omar modify the (uploads) path back to how you did it, cuz your way didn't work for me.
-    # "C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename
-
+    
     file = request.files['file']
-    file.save('./uploads/' + file.filename)
-    file = './uploads/' + file.filename
-
-    model_size = 'base'
-    model = WhisperModel(model_size, device="cpu", compute_type="int8_float32")
+    # FOR IT TO WORK YOU NEED TO CHANGE THE PATH BELLOW SO THAT THE AUDIO FILE WILL BE SAVED INTO THE GIVE FILE :D
+    # NOTE: just note that when we will deploy the website we will add the path that we want the file to be saved to in the server's computer 
+    #file.save("C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename)  #change path here 
+    #file = "C:\\Users\\omar0\\Desktop\\LASER_WEB\\LASER\\backend\\uploads\\" + file.filename # and change path here
+    file.save(os.path.join(os.getcwd(),'backend\\uploads',file.filename))
+    file = os.path.join(os.getcwd(),'backend\\uploads',file.filename)
+    
 
     parser = argparse.ArgumentParser()
 
@@ -38,46 +42,30 @@ def upload():
 
     for segment in segments:
         print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-        audio_file = AudioSegment.from_wav(file)
-        audio_file = audio_file[(segment.start * 1000):(segment.end * 1000)]
-        audio_file.export(file, format="wav")
+        #audio_file = AudioSegment.from_wav(file)
+        #audio_file = audio_file[(segment.start * 1000):(segment.end * 1000)]
+        #audio_file.export(file, format="wav")
         counter += 1
         transcripts.append(segment.text)
 
-    return jsonify({"message": transcripts})
+    # summarize
+    summary = summarizer.summarize(" ".join(transcripts))
+    return jsonify({"message": summary})
 
 
+# this is to recive data from the frontend and then resend the data back to the frontend inorder to print the youtube generated transcript
+# NOTE: still working on it (its still not working)
 @app.route("/youtubeUpload", methods=['POST'])
 def youtubeUpload():
-    data = request.get_json();
-    yt = YouTube(data["link"])
-    video = yt.streams.filter(only_audio=True).first()
-    out_file = video.download(output_path='./uploads/' )
-    base, ext = os.path.splitext(out_file)
-    new_file = base + '.wav'
-    if not os.path.exists(new_file):
-        os.rename(out_file, new_file)
-    file = new_file
+    data = request.get_json(); #reciving data from frontend in json format
+    print(type(data)) #for testing purposes you can remove it
+    print()
+    print(data["link"]) # same here (only for testing purposes
 
-    print(new_file)
-
-    model_size = 'base'
-    model = WhisperModel(model_size, device="cpu", compute_type="int8_float32")
-
-
-    segments, info = model.transcribe(file, beam_size=5)
-
-
-    transcripts = []
-    counter = 0
-
-    for segment in segments:
-        print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-        transcripts.append(segment.text)
-
-   
-
-    return jsonify({"Youtubetranscript" : transcripts})
+    return jsonify({"Youtubetranscript" : "hello world from backend"}) #just a test were i am trying to send back to the frontend the Youtube link
       
+    
+
+
 if __name__ == '__main__':
     app.run(debug=True)
